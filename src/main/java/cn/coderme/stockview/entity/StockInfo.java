@@ -86,6 +86,16 @@ public class StockInfo implements Serializable {
      */
     private String website;
 
+    private String legalRepresentative;//法定代表人
+    private String secretary;//董事会秘书
+    private String email;//E-mail
+    private String contact;//联系电话
+    private String csrcIndustry;//CSRC行业(门类)
+    private String csrcGreat;//CSRC行业(大类)
+    private String csrcMiddle;//CSRC行业(中类)
+    private String officeAddress;//通讯地址
+    private String officeZip;//通讯地址邮编
+
     private StockRealtime stockRealtime;// 实时数据
 
     public Integer getId() {
@@ -214,6 +224,78 @@ public class StockInfo implements Serializable {
 
     public void setStockRealtime(StockRealtime stockRealtime) {
         this.stockRealtime = stockRealtime;
+    }
+
+    public String getLegalRepresentative() {
+        return legalRepresentative;
+    }
+
+    public void setLegalRepresentative(String legalRepresentative) {
+        this.legalRepresentative = legalRepresentative;
+    }
+
+    public String getSecretary() {
+        return secretary;
+    }
+
+    public void setSecretary(String secretary) {
+        this.secretary = secretary;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public String getCsrcIndustry() {
+        return csrcIndustry;
+    }
+
+    public void setCsrcIndustry(String csrcIndustry) {
+        this.csrcIndustry = csrcIndustry;
+    }
+
+    public String getCsrcGreat() {
+        return csrcGreat;
+    }
+
+    public void setCsrcGreat(String csrcGreat) {
+        this.csrcGreat = csrcGreat;
+    }
+
+    public String getCsrcMiddle() {
+        return csrcMiddle;
+    }
+
+    public void setCsrcMiddle(String csrcMiddle) {
+        this.csrcMiddle = csrcMiddle;
+    }
+
+    public String getOfficeAddress() {
+        return officeAddress;
+    }
+
+    public void setOfficeAddress(String officeAddress) {
+        this.officeAddress = officeAddress;
+    }
+
+    public String getOfficeZip() {
+        return officeZip;
+    }
+
+    public void setOfficeZip(String officeZip) {
+        this.officeZip = officeZip;
     }
 
     @Override
