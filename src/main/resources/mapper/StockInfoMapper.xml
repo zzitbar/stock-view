@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.coderme.stockview.mapper.StockInfoMapper">
+
+    <!-- 开启二级缓存 -->
+    <!--<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
+
+    <resultMap type="cn.coderme.stockview.entity.StockRealtime" id="StockRealtimeResultMap">
+        <!-- 属性名和数据库列名映射 -->
+        <id property="id" column="realTimeId"  />
+        <result property="currentPrice" column="currentPrice"  />
+        <result property="increaseRate" column="increaseRate"  />
+        <result property="lastClose" column="lastClose"  />
+        <result property="open" column="open"  />
+        <result property="dealQty" column="dealQty"  />
+        <result property="dealMoney" column="dealMoney"  />
+        <result property="high" column="high"  />
+        <result property="low" column="low"  />
+        <result property="realDate" column="realDate"  />
+        <result property="realTime" column="realTime"  />
+        <result property="updateTime" column="updateTime"  />
+    </resultMap>
+
+    <resultMap id="stockInfoResultMap" type="cn.coderme.stockview.entity.StockInfo">
+        <id column="stock_id" property="id"/>
+        <result column="stockCode" property="stockCode"/>
+        <result column="stockName" property="stockName"/>
+        <result column="market" property="market"/>
+        <result column="totalQty" property="totalQty"/>
+        <result column="negotiableQty" property="negotiableQty"/>
+        <association property="stockRealtime" javaType="cn.coderme.stockview.entity.StockRealtime"
+                     resultMap="StockRealtimeResultMap"/>
+    </resultMap>
+
+    <select id="page" resultType="cn.coderme.stockview.entity.StockInfo" useCache="false">
+        select * from stock_info
+    </select>
+
+    <!-- 使用别名来映射匹配 -->
+    <select id="pageRealTime" resultMap="stockInfoResultMap">
+        select si.id stock_id, si.stockCode, si.stockName, si.market, si.totalQty, si.negotiableQty,
+        stockRealtime.id realTimeId, stockRealtime.currentPrice, stockRealtime.increaseRate, stockRealtime.lastClose, stockRealtime.open, stockRealtime.dealQty,
+        stockRealtime.dealMoney, stockRealtime.high, stockRealtime.low, stockRealtime.realDate,
+        stockRealtime.realTime, stockRealtime.updateTime
+        from stock_info si LEFT JOIN stock_realtime stockRealtime
+        ON si.id=stockRealtime.stockId
+        <where>
+            <if test="market != null and market !=''">
+                si.market = #{market}
+            </if>
+            <if test="stockCode != null and stockCode !=''">
+                AND si.stockCode = #{stockCode}
+            </if>
+            <if test="stockName != null and stockName !=''">
+                AND si.stockName = #{stockName}
+            </if>
+        </where>
+    </select>
+</mapper>
