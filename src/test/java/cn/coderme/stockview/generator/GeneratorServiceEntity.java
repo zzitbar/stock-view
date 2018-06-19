@@ -11,12 +11,7 @@ import com.baomidou.mybatisplus.generator.config.rules.DbType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 
 /**
- * <p>
- * 测试生成代码
- * </p>
- *
- * @author K神
- * @date 2017/12/18
+ * 代码生成器
  */
 public class GeneratorServiceEntity {
 
@@ -24,7 +19,7 @@ public class GeneratorServiceEntity {
     public void generateCode() {
         String packageName = "cn.coderme.stockview";
         boolean serviceNameStartWithI = false;//user -> UserService, 设置成true: user -> IUserService
-        generateByTables(serviceNameStartWithI, packageName, "stock_info", "stock_realtime");
+        generateByTables(serviceNameStartWithI, packageName, "md_province", "stock_realtime");
     }
 
     private void generateByTables(boolean serviceNameStartWithI, String packageName, String... tableNames) {

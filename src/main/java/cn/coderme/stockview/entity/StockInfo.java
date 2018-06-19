@@ -2,6 +2,8 @@ package cn.coderme.stockview.entity;
 
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
+
+import java.beans.Transient;
 import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
@@ -77,6 +79,8 @@ public class StockInfo implements Serializable {
      * 城市
      */
     private String city;
+    private String district;//区县
+    private String location;//经纬度
     /**
      * 所属行业
      */
@@ -96,6 +100,7 @@ public class StockInfo implements Serializable {
     private String officeAddress;//通讯地址
     private String officeZip;//通讯地址邮编
 
+    @TableField(exist=false)
     private StockRealtime stockRealtime;// 实时数据
 
     public Integer getId() {
@@ -296,6 +301,22 @@ public class StockInfo implements Serializable {
 
     public void setOfficeZip(String officeZip) {
         this.officeZip = officeZip;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     @Override
