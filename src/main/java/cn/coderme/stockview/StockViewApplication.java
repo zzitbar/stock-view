@@ -68,8 +68,11 @@ public class StockViewApplication {
     @Bean
     public Executor getExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        // 线程池维护线程的最少数量
         executor.setCorePoolSize(5);
+        // 线程池维护线程的最大数量
         executor.setMaxPoolSize(10);
+        // 缓存队列最大长度
         executor.setQueueCapacity(25);
         executor.initialize();
         return executor;

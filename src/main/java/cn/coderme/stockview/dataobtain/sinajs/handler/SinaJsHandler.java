@@ -3,12 +3,14 @@ package cn.coderme.stockview.dataobtain.sinajs.handler;
 import cn.coderme.stockview.base.StockApiProperties;
 import cn.coderme.stockview.entity.StockInfo;
 import cn.coderme.stockview.entity.StockRealtime;
-import cn.coderme.stockview.mapper.StockInfoMapper;
-import cn.coderme.stockview.service.StockInfoService;
 import cn.coderme.stockview.service.StockRealtimeService;
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.*;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +27,7 @@ import java.util.*;
  * Time:13:48
  */
 @Service
+@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class SinaJsHandler {
 
     private static final Integer REQUEST_BATCH_CNT = 5;
@@ -46,7 +49,7 @@ public class SinaJsHandler {
             if (remainder < REQUEST_BATCH_CNT) {
                 stockInfos.add(entryValue.get(i));
             }
-            if (remainder == (REQUEST_BATCH_CNT-1)) {
+            if (remainder == REQUEST_BATCH_CNT-1 || i == size-1) {
                 handle(stockInfos);
                 stockInfos = new ArrayList<>();
             }
@@ -66,6 +69,9 @@ public class SinaJsHandler {
         StringBuilder sb = new StringBuilder();
         Map<String, StockInfo> stockCodeMap = new HashMap<>();
         for (StockInfo si : stockInfos) {
+            if (si.getStockCode().equals("300750")) {
+                System.out.println(si.getStockCode());
+            }
             stockCodeMap.put(si.getMarket()+si.getStockCode(), si);
             sb.append(si.getMarket()).append(si.getStockCode()).append(",");
         }
@@ -124,7 +130,7 @@ public class SinaJsHandler {
                             stockRealtime.setRealTime(LocalTime.parse(data[31]));
                             if (null != stockRealtime.getLastClose() && null != stockRealtime.getCurrentPrice()
                                     && !Double.valueOf(0).equals(stockRealtime.getLastClose())) {
-                                stockRealtime.setIncreaseRate(splitAndRound((stockRealtime.getCurrentPrice() - stockRealtime.getLastClose()) / stockRealtime.getLastClose(), 2));
+                                stockRealtime.setIncreaseRate(splitAndRound((stockRealtime.getCurrentPrice() - stockRealtime.getLastClose()) / stockRealtime.getLastClose(), 4));
                             }
                         }
                         if (null != stockRealtime.getId()) {

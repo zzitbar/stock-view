@@ -27,12 +27,13 @@ public class SinaJsJob {
 
     private static final Integer THREAD_DEAL_SIZE = 500;
 
-//    @Scheduled(fixedRate = 12000) //通过@Scheduled声明该方法是计划任务，使用fixedRate属性每隔固定时间执行
+    @Scheduled(fixedRate = 120000) //通过@Scheduled声明该方法是计划任务，使用fixedRate属性每隔固定时间执行
     public void run() {
         if (null == stockMap || stockMap.size() == 0) {
             synchronized (this) {
                 EntityWrapper<StockInfo> ew = new EntityWrapper<>();
                 ew.setSqlSelect("id, stockCode, market");//只查询3个字段
+//                ew.eq("stockCode", "300746");
                 List<StockInfo> stockInfoList = stockInfoService.selectList(ew);
                 int size = stockInfoList.size();
                 int threadCnt = stockInfoList.size()/THREAD_DEAL_SIZE;
@@ -55,6 +56,9 @@ public class SinaJsJob {
     public static void main(String[] args) {
         List<Integer> list = Arrays.asList(new Integer[]{1,2,3,4,5,6,7,8,9,10});
         System.out.println(list.subList(0, 5));
-        System.out.println(list.subList(5, 20));
+        System.out.println(list.subList(5, 10));
+
+        int size = 4;
+        System.out.println((6<5)?4:2-1);
     }
 }
