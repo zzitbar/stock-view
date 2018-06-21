@@ -1,7 +1,10 @@
 package cn.coderme.stockview.mapper;
 
+import cn.coderme.stockview.dto.hchart.CountDto;
 import cn.coderme.stockview.entity.StockRealtime;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  */
 public interface StockRealtimeMapper extends BaseMapper<StockRealtime> {
 
+    List<CountDto> increaseRange();
 }

@@ -23,6 +23,8 @@ public class StockApiProperties {
     private String amapAddressResolveApi;//高德地理编码
     @Value("${amap_key}")
     private String amapKey;//高德地图 web rest 接口 key
+    @Value("${sinajs_stock_history_api}")
+    private String sinajsHistory;
 
     public String getSinajsApi() {
         return sinajsApi;
@@ -54,5 +56,13 @@ public class StockApiProperties {
 
     public void setAmapKey(String amapKey) {
         this.amapKey = amapKey;
+    }
+
+    public String getSinajsHistory() {
+        return sinajsHistory;
+    }
+
+    public void setSinajsHistory(String sinajsHistory) {
+        this.sinajsHistory = sinajsHistory;
     }
 }

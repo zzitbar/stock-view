@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
     <link rel="stylesheet" type="text/css"
-    <#--href="https://fonts.cat.net/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400"/>-->
+<#--href="https://fonts.cat.net/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400"/>-->
     <link rel="stylesheet" type="text/css" href="${ctx}/static/css/font-awesome-4.5.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" type="text/css" href="${ctx}/static/js/bootstrap/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="${request.contextPath}/static/js/bootstrap-table-master/dist/bootstrap-table.min.css">
@@ -21,10 +21,11 @@
     <link rel="shortcut icon" href="/favicon.png" type="image/png"/>
     <meta name="referrer" content="no-referrer-when-downgrade"/>
     <style>
-        .increase{
+        .increase {
             color: #FF0000;
         }
-        .decrease{
+
+        .decrease {
             color: #008000;
         }
     </style>
@@ -48,14 +49,12 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-3 col-lg-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">导航</div>
-                <ul class="list-group">
-                    <li class="list-group-item"><a href="#" onclick="show('${ctx}/stockInfo/index')">股票列表</a></li>
-                    <li class="list-group-item btn btn-link" onclick="">实时数据</li>
-                    <li class="list-group-item btn btn-link" onclick="">统计</li>
-                </ul>
-            </div>
+            <a href="#" class="list-group-item menu-list active" data-url="${ctx}/stockInfo/index">
+                股票列表
+            </a>
+            <a href="#" class="list-group-item menu-list" data-url="${ctx}/stockInfo/index">实时数据</a>
+            <a href="#" class="list-group-item menu-list" data-url="${ctx}/stockInfo/index">统计</a>
+            <a href="#" class="list-group-item menu-list" data-url="${ctx}/statistic/increaseRange">涨跌家数统计</a>
         </div>
         <div class="col-sm-9 col-lg-10" id="content">
 
@@ -68,14 +67,8 @@
 <script src="${request.contextPath}/static/js/bootstrap-table-master/src/bootstrap-table.js"></script>
 <script src="${request.contextPath}/static/js/bootstrap-table-master/src/locale/bootstrap-table-zh-CN.js"></script>
 <script src="${request.contextPath}/static/js/jquery.serializeJSON/jquery.serializejson.js"></script>
+<script src="${ctx}/static/js/layer-v3.0.3/layer/layer.js"></script>
+<script src="${ctx}/static/js/stock.base.js"></script>
 
-<script>
-    function show(url) {
-        console.log(url);
-        $.get(url, function (result) {
-            $("#content").html(result);
-        });
-    }
-</script>
 </body>
 </html>

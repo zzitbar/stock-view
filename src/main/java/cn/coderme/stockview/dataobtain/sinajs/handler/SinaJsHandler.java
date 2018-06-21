@@ -69,9 +69,6 @@ public class SinaJsHandler {
         StringBuilder sb = new StringBuilder();
         Map<String, StockInfo> stockCodeMap = new HashMap<>();
         for (StockInfo si : stockInfos) {
-            if (si.getStockCode().equals("300750")) {
-                System.out.println(si.getStockCode());
-            }
             stockCodeMap.put(si.getMarket()+si.getStockCode(), si);
             sb.append(si.getMarket()).append(si.getStockCode()).append(",");
         }
