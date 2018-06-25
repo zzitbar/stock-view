@@ -19,7 +19,7 @@ public class GeneratorServiceEntity {
     public void generateCode() {
         String packageName = "cn.coderme.stockview";
         boolean serviceNameStartWithI = false;//user -> UserService, 设置成true: user -> IUserService
-        generateByTables(serviceNameStartWithI, packageName, "md_province", "stock_realtime");
+        generateByTables(serviceNameStartWithI, packageName, "stock_history");
     }
 
     private void generateByTables(boolean serviceNameStartWithI, String packageName, String... tableNames) {
@@ -40,7 +40,7 @@ public class GeneratorServiceEntity {
                 .setInclude(tableNames);//修改替换成你需要的表名，多个表名传数组
         config.setActiveRecord(false)
                 .setAuthor("Coderme")
-                .setOutputDir("e:\\codeGen")
+                .setOutputDir("E:\\stock-view\\src\\main\\java")
                 .setFileOverride(true);
         if (!serviceNameStartWithI) {
             config.setServiceName("%sService");

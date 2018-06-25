@@ -2,7 +2,11 @@ package cn.coderme.stockview;
 
 import cn.coderme.stockview.dataobtain.amap.AmapExpService;
 import cn.coderme.stockview.dto.amap.AddressGeoDto;
+import cn.coderme.stockview.dto.amap.ProvinceDto;
+import cn.coderme.stockview.dto.amap.base.AmapBaseDto;
+import cn.coderme.stockview.entity.MdProvince;
 import cn.coderme.stockview.entity.StockInfo;
+import cn.coderme.stockview.service.MdProvinceService;
 import cn.coderme.stockview.service.StockInfoService;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import org.junit.Test;
@@ -27,6 +31,8 @@ public class AmapTest {
     private AmapExpService amapExpService;
     @Autowired
     private StockInfoService stockInfoService;
+    @Autowired
+    private MdProvinceService mdProvinceService;
 
     @Test
     public void adderssResolve() {
@@ -56,5 +62,18 @@ public class AmapTest {
         }
     }
 
+    @Test
+    public void provinceGenerate() {
+        ProvinceDto dto = amapExpService.provinceList("", "1", "");
+        if (AmapBaseDto.STATUS_SUCCESS.equals(dto.getStatus()) && null != dto.getDistricts() && dto.getDistricts().size()>0) {
+            for (ProvinceDto.DistrictsBeanX districtsBeanX : dto.getDistricts().get(0).getDistricts()) {
+                MdProvince province = new MdProvince();
+                province.setName(districtsBeanX.getName());
+                province.setAdcode(districtsBeanX.getAdcode());
+                province.setCenter(districtsBeanX.getCenter());
+                mdProvinceService.insert(province);
+            }
+        }
+    }
 
 }
