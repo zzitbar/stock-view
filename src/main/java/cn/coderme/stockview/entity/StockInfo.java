@@ -1,13 +1,13 @@
 package cn.coderme.stockview.entity;
 
+import cn.coderme.stockview.Constants;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
 
-import java.beans.Transient;
-import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableField;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 /**
  * <p>
@@ -56,7 +56,7 @@ public class StockInfo implements Serializable {
      * A股上市日期
      */
     @TableField("ipoDate")
-    private Date ipoDate;
+    private LocalDate ipoDate;
     /**
      * A股总股本
      */
@@ -99,6 +99,9 @@ public class StockInfo implements Serializable {
     private String csrcMiddle;//CSRC行业(中类)
     private String officeAddress;//通讯地址
     private String officeZip;//通讯地址邮编
+
+    private LocalDate lastHistoryDate;//历史记录最后更新日期
+    private Integer type = Constants.STOCK_TYPE.STOCK.getValue();//类型 1：股票，2：股票指数
 
     @TableField(exist=false)
     private StockRealtime stockRealtime;// 实时数据
@@ -159,11 +162,11 @@ public class StockInfo implements Serializable {
         this.address = address;
     }
 
-    public Date getIpoDate() {
+    public LocalDate getIpoDate() {
         return ipoDate;
     }
 
-    public void setIpoDate(Date ipoDate) {
+    public void setIpoDate(LocalDate ipoDate) {
         this.ipoDate = ipoDate;
     }
 
@@ -317,6 +320,22 @@ public class StockInfo implements Serializable {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public LocalDate getLastHistoryDate() {
+        return lastHistoryDate;
+    }
+
+    public void setLastHistoryDate(LocalDate lastHistoryDate) {
+        this.lastHistoryDate = lastHistoryDate;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 
     @Override

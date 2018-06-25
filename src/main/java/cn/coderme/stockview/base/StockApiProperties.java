@@ -25,6 +25,10 @@ public class StockApiProperties {
     private String amapKey;//高德地图 web rest 接口 key
     @Value("${sinajs_stock_history_api}")
     private String sinajsHistory;
+    @Value("${netease_stock_history_csv_api}")
+    private String neteaseHistoryCsvApi;
+    @Value("${netease_stock_history_csv_downloadpath}")
+    private String neteaseHistoryCsvFilePath;//下载的csv保存的目标
 
     public String getSinajsApi() {
         return sinajsApi;
@@ -64,5 +68,21 @@ public class StockApiProperties {
 
     public void setSinajsHistory(String sinajsHistory) {
         this.sinajsHistory = sinajsHistory;
+    }
+
+    public String getNeteaseHistoryCsvApi() {
+        return neteaseHistoryCsvApi;
+    }
+
+    public void setNeteaseHistoryCsvApi(String neteaseHistoryCsvApi) {
+        this.neteaseHistoryCsvApi = neteaseHistoryCsvApi;
+    }
+
+    public String getNeteaseHistoryCsvFilePath() {
+        return neteaseHistoryCsvFilePath;
+    }
+
+    public void setNeteaseHistoryCsvFilePath(String neteaseHistoryCsvFilePath) {
+        this.neteaseHistoryCsvFilePath = neteaseHistoryCsvFilePath;
     }
 }
