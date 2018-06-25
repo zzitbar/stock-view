@@ -40,7 +40,7 @@
         <div>
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#">首页</a></li>
-                <li><a href="#">关于</a></li>
+                <li><a href="#">股票交易数据</a></li>
             </ul>
         </div>
     </div>
@@ -53,6 +53,7 @@
                 股票列表
             </a>
             <a href="#" class="list-group-item menu-list" data-url="${ctx}/stockInfo/index">实时数据</a>
+            <a href="#" class="list-group-item menu-list" data-url="${ctx}/stockInfo//history?stockCode=000001">历史交易</a>
             <a href="#" class="list-group-item menu-list" data-url="${ctx}/stockInfo/index">统计</a>
             <a href="#" class="list-group-item menu-list" data-url="${ctx}/statistic/increaseRange">涨跌家数统计</a>
         </div>
@@ -67,6 +68,10 @@
 <script src="${request.contextPath}/static/js/bootstrap-table-master/src/bootstrap-table.js"></script>
 <script src="${request.contextPath}/static/js/bootstrap-table-master/src/locale/bootstrap-table-zh-CN.js"></script>
 <script src="${request.contextPath}/static/js/jquery.serializeJSON/jquery.serializejson.js"></script>
+<script src="${request.contextPath}/static/js/highcharts/highstock.js"></script>
+<script src="${request.contextPath}/static/js/highcharts/sand-signika.js"></script>
+<script src="${request.contextPath}/static/js/highcharts/no-data-to-display.js"></script>
+<script src="${request.contextPath}/static/js/highcharts/exporting.src.js"></script>
 <script src="${ctx}/static/js/layer-v3.0.3/layer/layer.js"></script>
 <script src="${ctx}/static/js/stock.base.js"></script>
 
