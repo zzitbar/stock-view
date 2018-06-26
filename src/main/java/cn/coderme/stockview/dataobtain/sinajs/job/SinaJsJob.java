@@ -27,7 +27,10 @@ public class SinaJsJob {
 
     private static final Integer THREAD_DEAL_SIZE = 500;
 
-//    @Scheduled(fixedRate = 300000) //通过@Scheduled声明该方法是计划任务，使用fixedRate属性每隔固定时间执行
+    /**
+     * 每周一至周五9点至15点，每隔5分钟
+     */
+    @Scheduled(cron = "0 0/5 9-15 * * MON-FRI ") //通过@Scheduled声明该方法是计划任务，使用fixedRate属性每隔固定时间执行
     public void run() {
         if (null == stockMap || stockMap.size() == 0) {
             synchronized (this) {

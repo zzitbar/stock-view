@@ -126,7 +126,8 @@ public class SinaJsHandler {
                             stockRealtime.setRealDate(LocalDate.parse(data[30]));
                             stockRealtime.setRealTime(LocalTime.parse(data[31]));
                             if (null != stockRealtime.getLastClose() && null != stockRealtime.getCurrentPrice()
-                                    && !Double.valueOf(0).equals(stockRealtime.getLastClose())) {
+                                    && !Double.valueOf(0).equals(stockRealtime.getLastClose())
+                                    && !Double.valueOf(0).equals(stockRealtime.getCurrentPrice())) {
                                 stockRealtime.setIncreaseRate(splitAndRound((stockRealtime.getCurrentPrice() - stockRealtime.getLastClose()) / stockRealtime.getLastClose(), 4));
                             }
                         }

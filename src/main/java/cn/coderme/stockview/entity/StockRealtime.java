@@ -1,5 +1,6 @@
 package cn.coderme.stockview.entity;
 
+import cn.coderme.stockview.Constants;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
 
@@ -170,6 +171,8 @@ public class StockRealtime implements Serializable {
     private Date updateTime;
     @TableField("increaseRate")
     private Double increaseRate;//涨幅
+
+    private Integer status = Constants.STOCK_STATUS.TRADE.getValue(); //状态 1:交易，2:停牌
 
     public Integer getId() {
         return id;
@@ -457,6 +460,14 @@ public class StockRealtime implements Serializable {
 
     public void setIncreaseRate(Double increaseRate) {
         this.increaseRate = increaseRate;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     @Override

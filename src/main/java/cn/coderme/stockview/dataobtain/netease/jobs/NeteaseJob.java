@@ -34,8 +34,9 @@ public class NeteaseJob {
 
     /**
      * 下载记录交易csv
+     * 每周一至周五凌晨1点
      */
-//    @Scheduled(fixedRate = 300000)
+    @Scheduled(cron = "* * 1 * * 1/5")
     public void downloadCsvFromNetease() {
         EntityWrapper<StockInfo> ew = new EntityWrapper<>();
         ew.setSqlSelect("id, stockCode, market, lastHistoryDate, type");
@@ -54,7 +55,9 @@ public class NeteaseJob {
 
     /**
      * 导入记录交易csv
+     * 每周一至周五凌晨2点
      */
+    @Scheduled(cron = "* * 2 * * 1/5")
     public void importCsv() {
         for (Constants.STOCK_TYPE stockType : Constants.STOCK_TYPE.values()){
             File file = new File(stockApiProperties.getNeteaseHistoryCsvFilePath()+stockType.getValue());
@@ -64,6 +67,28 @@ public class NeteaseJob {
                     stockHistoryService.importCsv(file.getAbsolutePath() + "\\" + filelist[i], stockType.getValue());
                 }
             }
+        }
+    }
+
+    /**
+     * 停复牌
+     * 每周一至周五上午9点和下午1点
+     */
+    @Scheduled(cron = "0 0 9,13 * * 1/5")
+    public void suspend() {
+        neteaseStockHistoryHandler.handleSuspend(0);
+    }
+
+    /**
+     * 抓取新股信息
+     * 每周一至周五上午8点
+     */
+    @Scheduled(cron = "0 0 8 * * 1/5")
+    public void handleNewStock() {
+        try {
+            neteaseStockHistoryHandler.handleNewStock();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

@@ -35,4 +35,18 @@ public class StockInfoServiceImpl extends ServiceImpl<StockInfoMapper, StockInfo
         dto.getPage().setRecords(super.baseMapper.pageRealTime(dto.pageable().getPage(), dto));
         return new PageDataDto<StockInfo>(dto.getPage());
     }
+
+    /**
+     * 根据股票代码和交易市场查询
+     * @param stockCode
+     * @param market
+     * @return
+     */
+    @Override
+    public StockInfo findByStockCodeAndMarket(String stockCode, String market) {
+        StockInfo si = new StockInfo();
+        si.setStockCode(stockCode);
+        si.setMarket(market);
+        return super.baseMapper.selectOne(si);
+    }
 }

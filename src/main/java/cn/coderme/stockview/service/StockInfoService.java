@@ -23,4 +23,6 @@ public interface StockInfoService extends IService<StockInfo> {
      * @return
      */
     PageDataDto<StockInfo> getPage(StockInfoDto dto);
+
+    StockInfo findByStockCodeAndMarket(String stockCode, String market);
 }

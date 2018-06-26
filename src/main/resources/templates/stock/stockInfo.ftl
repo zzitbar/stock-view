@@ -29,14 +29,14 @@
                 sortable: true
             }, {
                 field: 'stockRealtime.increaseRate',
-                title: '涨幅',
+                title: '涨跌幅',
                 sortable: true,
                 formatter: function (value, row, index) {
                     if (value && ""!=value) {
                         if (value >= 0) {
-                            return "<span class='increase'>"+value+"%"+"<i class='glyphicon glyphicon-arrow-up'></i></span>";
+                            return "<span class='increase'>"+(value*100).toFixed(2)+"%"+"<i class='glyphicon glyphicon-arrow-up'></i></span>";
                         } else {
-                            return "<span class='decrease'>"+value+"%"+"<i class='glyphicon glyphicon-arrow-down'></i></span>";
+                            return "<span class='decrease'>"+(value*100).toFixed(2)+"%"+"<i class='glyphicon glyphicon-arrow-down'></i></span>";
                         }
                     } else {
                         return value;

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * Time:17:35
  */
 @Controller
-@RequestMapping("/index")
+@RequestMapping(value = {"/index", ""})
 public class IndexController {
 
     @Autowired(required = false)

@@ -29,6 +29,8 @@ public class StockApiProperties {
     private String neteaseHistoryCsvApi;
     @Value("${netease_stock_history_csv_downloadpath}")
     private String neteaseHistoryCsvFilePath;//下载的csv保存的目标
+    @Value("${netease_stock_suspend_api}")
+    private String neteaseStockSuspendApi;//停复牌股票接口
 
     public String getSinajsApi() {
         return sinajsApi;
@@ -84,5 +86,13 @@ public class StockApiProperties {
 
     public void setNeteaseHistoryCsvFilePath(String neteaseHistoryCsvFilePath) {
         this.neteaseHistoryCsvFilePath = neteaseHistoryCsvFilePath;
+    }
+
+    public String getNeteaseStockSuspendApi() {
+        return neteaseStockSuspendApi;
+    }
+
+    public void setNeteaseStockSuspendApi(String neteaseStockSuspendApi) {
+        this.neteaseStockSuspendApi = neteaseStockSuspendApi;
     }
 }
