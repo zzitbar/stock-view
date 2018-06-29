@@ -73,6 +73,7 @@ public class NeteaseStockHistoryHandler {
 
     /**
      * 处理停复牌
+     * http://quotes.money.163.com/old/#query=TFPTS&DataType=tpts&sort=NTRAD4&order=desc&count=25&page=0
      * @param page
      */
     @Transactional

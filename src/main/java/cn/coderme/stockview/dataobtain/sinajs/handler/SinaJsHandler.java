@@ -4,6 +4,7 @@ import cn.coderme.stockview.base.StockApiProperties;
 import cn.coderme.stockview.entity.StockInfo;
 import cn.coderme.stockview.entity.StockRealtime;
 import cn.coderme.stockview.service.StockRealtimeService;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
@@ -83,7 +84,7 @@ public class SinaJsHandler {
                         StockInfo stockInfo = stockCodeMap.get(result[0]);
                         String[] data = result[1].split(",");
 
-                        StockRealtime stockRealtime = stockRealtimeService.findByStockId(stockInfo.getId());
+                        StockRealtime stockRealtime = stockRealtimeService.selectOne(new EntityWrapper<StockRealtime>().eq("stockId", stockInfo.getId()));
                         if (null == stockRealtime) {
                             stockRealtime = new StockRealtime();
                             stockRealtime.setStockId(stockInfo.getId());

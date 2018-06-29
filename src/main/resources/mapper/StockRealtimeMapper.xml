@@ -23,7 +23,7 @@
         WHEN sr.increaseRate>=-0.07 AND sr.increaseRate &lt; 0.05 THEN '08*-7%~-5%'
         WHEN sr.increaseRate &lt; -0.07 AND sr.bidPrice!=0 THEN '09*> -7%'
         WHEN sr.bidPrice=0 AND sr.auctionPrice>0 THEN '10*跌停'
-        ELSE '11*停牌' END AS rate,COUNT(1) AS cnt FROM stock_realtime sr GROUP BY rate ORDER BY rate) temp
+        ELSE '11*其他' END AS rate,COUNT(1) AS cnt FROM stock_realtime sr where sr.status=1 GROUP BY rate ORDER BY rate) temp
     </select>
 
 </mapper>
