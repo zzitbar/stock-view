@@ -66,7 +66,6 @@
         });
         $(".market-toggle").on("click", function (e) {
             var $this = e.target;
-            console.log($this);
             $($this).siblings().removeClass("active");
             $($this).addClass("active");
             $("#market").val($($this).attr("data-market"));

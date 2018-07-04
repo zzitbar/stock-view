@@ -1,5 +1,6 @@
 package cn.coderme.stockview;
 
+import cn.coderme.stockview.base.listener.StartApplicationListener;
 import com.baomidou.mybatisplus.plugins.PaginationInterceptor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -14,9 +15,11 @@ import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
@@ -34,6 +37,9 @@ import java.util.concurrent.Executor;
 public class StockViewApplication {
 
     public static void main(String[] args) {
+//        SpringApplication app = new SpringApplication(StockViewApplication.class);
+//        app.addListeners(new StartApplicationListener());
+//        app.run(args);
         SpringApplication.run(StockViewApplication.class, args);
     }
 
@@ -77,4 +83,12 @@ public class StockViewApplication {
         executor.initialize();
         return executor;
     }
+
+//    @Bean
+//    public TaskScheduler poolScheduler() {
+//        ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
+//        scheduler.setThreadNamePrefix("poolScheduler");
+//        scheduler.setPoolSize(10);
+//        return scheduler;
+//    }
 }

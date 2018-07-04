@@ -2,6 +2,8 @@ package cn.coderme.stockview.dataobtain.netease.jobs;
 
 import cn.coderme.stockview.Constants;
 import cn.coderme.stockview.base.StockApiProperties;
+import cn.coderme.stockview.base.annotation.Job;
+import cn.coderme.stockview.base.annotation.JobInfo;
 import cn.coderme.stockview.dataobtain.netease.handler.NeteaseStockHistoryHandler;
 import cn.coderme.stockview.entity.StockInfo;
 import cn.coderme.stockview.service.StockHistoryService;
@@ -20,6 +22,7 @@ import java.util.List;
  * Date:2018/6/25
  * Time:10:32
  */
+@Job
 @Service
 public class NeteaseJob {
 
@@ -36,6 +39,7 @@ public class NeteaseJob {
      * 下载记录交易csv
      * 每周一至周五凌晨1点
      */
+    @JobInfo("下载记录交易csv")
     @Scheduled(cron = "* * 1 * * 1/5")
     public void downloadCsvFromNetease() {
         EntityWrapper<StockInfo> ew = new EntityWrapper<>();
@@ -57,6 +61,7 @@ public class NeteaseJob {
      * 导入记录交易csv
      * 每周一至周五凌晨2点
      */
+    @JobInfo("导入记录交易csv")
     @Scheduled(cron = "* * 2 * * 1/5")
     public void importCsv() {
         for (Constants.STOCK_TYPE stockType : Constants.STOCK_TYPE.values()){
@@ -74,6 +79,7 @@ public class NeteaseJob {
      * 停复牌
      * 每周一至周五上午9点和下午1点
      */
+    @JobInfo("抓取停复牌信息")
     @Scheduled(cron = "0 0 9,13 * * 1/5")
     public void suspend() {
         neteaseStockHistoryHandler.handleSuspend(0);
@@ -83,6 +89,7 @@ public class NeteaseJob {
      * 抓取新股信息
      * 每周一至周五上午8点
      */
+    @JobInfo("抓取新股信息")
     @Scheduled(cron = "0 0 8 * * 1/5")
     public void handleNewStock() {
         try {

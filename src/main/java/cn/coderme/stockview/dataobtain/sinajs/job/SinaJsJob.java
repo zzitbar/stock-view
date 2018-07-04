@@ -1,5 +1,7 @@
 package cn.coderme.stockview.dataobtain.sinajs.job;
 
+import cn.coderme.stockview.base.annotation.Job;
+import cn.coderme.stockview.base.annotation.JobInfo;
 import cn.coderme.stockview.dataobtain.sinajs.handler.SinaJsHandler;
 import cn.coderme.stockview.entity.StockInfo;
 import cn.coderme.stockview.service.StockInfoService;
@@ -15,6 +17,7 @@ import java.util.*;
  * Date:2018/6/14
  * Time:17:18
  */
+@Job
 @Service
 public class SinaJsJob {
 
@@ -30,6 +33,7 @@ public class SinaJsJob {
     /**
      * 每周一至周五9点至15点，每隔5分钟
      */
+    @JobInfo("抓取股票实时交易数据")
     @Scheduled(cron = "0 0/5 9-15 * * MON-FRI ") //通过@Scheduled声明该方法是计划任务，使用fixedRate属性每隔固定时间执行
     public void run() {
         if (null == stockMap || stockMap.size() == 0) {
