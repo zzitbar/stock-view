@@ -92,7 +92,8 @@ public class ScheduleConfigurer implements SchedulingConfigurer {
         }
         ScheduledFuture sf = ScheduleData.JOB_RUNNING_MAP.get(method);
         if (null != sf) {
-            sf.cancel(true);
+            boolean cancel = sf.cancel(true);
+            System.out.println(cancel);
         }
     }
 

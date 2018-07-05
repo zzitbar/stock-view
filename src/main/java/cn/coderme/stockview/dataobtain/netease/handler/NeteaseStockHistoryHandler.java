@@ -98,7 +98,7 @@ public class NeteaseStockHistoryHandler {
                         if (null != sr) {
                             sr.setStatus("今日停牌".equals(lb.getTYPE())?Constants.STOCK_STATUS.SUSPEND.getValue():
                                     Constants.STOCK_STATUS.TRADE.getValue());
-                            stockRealtimeService.insertOrUpdate(sr);
+                            stockRealtimeService.updateById(sr);
                         }
                         StockSuspend ss = stockSuspendService.selectOne(new EntityWrapper<StockSuspend>()
                                 .eq("stockId", si.getId())

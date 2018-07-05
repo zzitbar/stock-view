@@ -30,7 +30,6 @@ public class StartApplicationListener implements ApplicationListener<ContextRefr
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
         // root application context
-        System.out.println(event.getApplicationContext());
         if(null == event.getApplicationContext().getParent()) {
             log.info("加载 ROOT 系统配置...");
             Map<String, Object> jobs = event.getApplicationContext().getBeansWithAnnotation(Job.class);

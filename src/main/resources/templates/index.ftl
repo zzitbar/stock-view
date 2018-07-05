@@ -56,7 +56,7 @@
             <a href="#" class="list-group-item menu-list" data-url="${ctx}/stockInfo//history?stockCode=000001">历史交易</a>
             <a href="#" class="list-group-item menu-list" data-url="${ctx}/stockInfo/index">统计</a>
             <a href="#" class="list-group-item menu-list" data-url="${ctx}/statistic/increaseRange">涨跌家数统计</a>
-            <a href="#" class="list-group-item menu-list" data-url="${ctx}/jobs">定时任务管理</a>
+            <a href="#" class="list-group-item menu-list" data-url="${ctx}/job">定时任务管理</a>
         </div>
         <div class="col-sm-9 col-lg-10" id="content">
 

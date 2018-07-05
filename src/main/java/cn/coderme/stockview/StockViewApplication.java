@@ -33,7 +33,7 @@ import java.util.concurrent.Executor;
 //@EnableCaching // 启动缓存
 @MapperScan("cn.coderme.stockview.mapper")
 @EnableAsync  // 启用异步任务
-@EnableScheduling
+//@EnableScheduling
 public class StockViewApplication {
 
     public static void main(String[] args) {
