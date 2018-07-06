@@ -25,7 +25,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -98,6 +100,7 @@ public class NeteaseStockHistoryHandler {
                         if (null != sr) {
                             sr.setStatus("今日停牌".equals(lb.getTYPE())?Constants.STOCK_STATUS.SUSPEND.getValue():
                                     Constants.STOCK_STATUS.TRADE.getValue());
+                            sr.setUpdateTime(new Date());
                             stockRealtimeService.updateById(sr);
                         }
                         StockSuspend ss = stockSuspendService.selectOne(new EntityWrapper<StockSuspend>()
@@ -114,6 +117,7 @@ public class NeteaseStockHistoryHandler {
                         ss.setSuspendTitle(lb.getNTRAD1());
                         ss.setSuspendDesc(lb.getNTRAD6());
                         ss.setType(lb.getTYPE());
+                        ss.setUpdateTime(LocalDateTime.now());
                         stockSuspendService.insertOrUpdate(ss);
                     }
                 }

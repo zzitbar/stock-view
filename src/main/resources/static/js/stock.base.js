@@ -124,6 +124,17 @@ Stock.showSuccess = function(msg) {
 Stock.showError = function(errorMsg) {
     layer.alert(errorMsg, {icon: 2});
 };
+Stock.confirm = function (msg, confirmFunc) {
+    //询问框
+    var confirmMsg=msg?msg:"请确认";
+    layer.confirm(confirmMsg, {icon: 3, title:'请确认', btn: ['确定','取消']},
+        function(index){
+            confirmFunc();
+            layer.close(index);
+        }, function(index){
+            layer.close(index);
+        });
+};
 //深复制对象方法
 Stock.deepCloneObj = function (obj) {
     var newObj = {};

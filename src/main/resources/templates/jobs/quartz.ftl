@@ -116,6 +116,21 @@
             }
         }, "json");
     }
+    function deleteJob(jobName, groupName) {
+        Stock.confirm("确认要删除该任务吗？", function () {
+            var loading = Stock.loading();
+            $.post("${request.contextPath}/job/delete", {jobName: jobName, groupName: groupName}, function (result) {
+                Stock.endLoading(loading);
+                if (result.code == Stock.SUCCESS) {
+                    Stock.showSuccess("操作成功");
+                    search();
+                } else {
+                    Stock.showError(result.msg);
+                }
+            }, "json");
+        })
+    }
+
     function addJob() {
         var loading = Stock.loading();
         $.post("${request.contextPath}/job/add", $("#jobForm").serialize(), function (result) {

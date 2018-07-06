@@ -37,7 +37,7 @@ public class SinaJsJob implements BaseJob {
 
     /**
      * 抓取股票实时交易数据
-     * 每周一至周五9点至15点，每隔5分钟
+     * 每周一至周五9点至15点，每隔5分钟 0 0/5 9-15 ? * MON-FRI
      */
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
