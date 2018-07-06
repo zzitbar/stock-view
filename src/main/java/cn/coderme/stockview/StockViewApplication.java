@@ -54,7 +54,7 @@ public class StockViewApplication {
     @Autowired
     private Environment env;
 
-    @Bean
+    @Bean(name = "myDataSource")
     public DataSource getDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setUrl(env.getProperty("spring.datasource.url"));
