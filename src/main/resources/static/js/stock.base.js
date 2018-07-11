@@ -9,6 +9,15 @@ $(function () {
             $("#content").html(result);
         });
     })
+    $(".nav-list").on("click", function (e) {
+        var $this = e.target;
+        $($this).parent().siblings().removeClass("active");
+        $($this).parent().addClass("active");
+        var url = $($this).attr("data-url");
+        $.get(url, function (result) {
+            $("#page").html(result);
+        });
+    })
 })
 
 Stock.SUCCESS = 200;

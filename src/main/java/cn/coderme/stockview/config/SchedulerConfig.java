@@ -1,4 +1,4 @@
-package cn.coderme.stockview;
+package cn.coderme.stockview.config;
 
 import cn.coderme.stockview.job.BeanJobFactory;
 import org.quartz.Scheduler;

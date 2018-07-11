@@ -10,9 +10,10 @@
     <meta name="HandheldFriendly" content="True"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    <link rel="stylesheet" type="text/css"
+    <#--<link rel="stylesheet" type="text/css"-->
 <#--href="https://fonts.cat.net/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400"/>-->
     <link rel="stylesheet" type="text/css" href="${ctx}/static/css/font-awesome-4.5.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" type="text/css" href="${ctx}/static/css/base.css"/>
     <link rel="stylesheet" type="text/css" href="${ctx}/static/js/bootstrap/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="${request.contextPath}/static/js/bootstrap-table-master/dist/bootstrap-table.min.css">
 
@@ -39,30 +40,12 @@
         </div>
         <div>
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">首页</a></li>
-                <li><a href="#">股票交易数据</a></li>
+                <li class="active"><a href="#" data-url="${ctx}/index" class="nav-list">首页</a></li>
+                <li><a  href="#" data-url="${ctx}/stock">股票交易数据</a></li>
             </ul>
         </div>
     </div>
 </nav>
-
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-3 col-lg-2">
-            <a href="#" class="list-group-item menu-list active" data-url="${ctx}/stockInfo/index">
-                股票列表
-            </a>
-            <a href="#" class="list-group-item menu-list" data-url="${ctx}/stockInfo/index">实时数据</a>
-            <a href="#" class="list-group-item menu-list" data-url="${ctx}/stockInfo//history?stockCode=000001">历史交易</a>
-            <a href="#" class="list-group-item menu-list" data-url="${ctx}/stockInfo/index">统计</a>
-            <a href="#" class="list-group-item menu-list" data-url="${ctx}/statistic/increaseRange">涨跌家数统计</a>
-            <a href="#" class="list-group-item menu-list" data-url="${ctx}/job">定时任务管理</a>
-        </div>
-        <div class="col-sm-9 col-lg-10" id="content">
-
-        </div>
-    </div>
-</div>
 
 <script src="${ctx}/static/js/jquery-2.2.3.min.js"></script>
 <script src="${request.contextPath}/static/js/bootstrap/js/bootstrap.min.js"></script>
@@ -76,5 +59,8 @@
 <script src="${ctx}/static/js/layer-v3.0.3/layer/layer.js"></script>
 <script src="${ctx}/static/js/stock.base.js"></script>
 
+<div class="container-fluid" id="page">
+<#include "./main.ftl">
+</div>
 </body>
 </html>

@@ -21,6 +21,7 @@ import java.util.Map;
 /**
 * Quartz 定时任务管理
  */
+@CrossOrigin(origins = "*", maxAge = 3600)
 @Controller
 @RequestMapping(value = "/job")
 public class JobController {
@@ -41,9 +42,9 @@ public class JobController {
 
     @PostMapping(value = "/page")
     @ResponseBody
-    public List<JobAndTrigger> queryjob(PageReqDto dto) {
+    public PageDataDto<JobAndTrigger> queryjob(PageReqDto dto) {
         PageDataDto<JobAndTrigger> jobAndTrigger = jobAndTriggerService.getJobAndTriggerDetails(dto);
-        return jobAndTrigger.getRows();
+        return jobAndTrigger;
     }
 
     @PostMapping(value = "/add")

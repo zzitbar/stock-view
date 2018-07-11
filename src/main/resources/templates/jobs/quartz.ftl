@@ -5,8 +5,8 @@
             contentType: "application/x-www-form-urlencoded; charset=UTF-8",
             method: "post",
             toolbar: "#toolbar",
-            // pagination: true,
-            // sidePagination: "server",
+            pagination: true,
+            sidePagination: "server",
             columns: [{
                 field: 'jobDescription',
                 title: '任务描述'

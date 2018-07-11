@@ -1,53 +1,19 @@
-<script type="text/javascript" src="${request.contextPath}/static/js/infinite-scroll.pkgd.js"></script>
-
+<link rel="stylesheet" href="${request.contextPath}/static/css/animate.css">
 <script>
+    var websocket = null;
     var nextPage = 0;
     var total = 0;
     $(function () {
         loadData();
-        $('#tasks').infiniteScroll({
-        <#--path: function () {-->
-        <#--return "${request.contextPath}/liveRoom/page?roomId=${room.roomId!}";-->
-        <#--},-->
-            <#--path: function () {-->
-                <#--var offset = nextPage * 10;-->
-                <#--if (offset <= total) {-->
-                    <#--return "${request.contextPath}/liveRoom/page?roomId=${room.roomId!}&offset=" + offset;-->
-                <#--}-->
-            <#--},-->
-            path: "#navigation a",
-        <#--path: "${request.contextPath}/liveRoom/page?offset=2&roomId=${room.roomId!}",-->
-            append: false,
-            responseType: 'json',
-            status: '.page-load-status'
-        });
-        var infScroll = $('#tasks').data('infiniteScroll');
-        $('#tasks').on('load.infiniteScroll', function (event, response) {
-            // parse JSON
-            if (response && response.rows && response.rows.length > 0) {
-                var html = "";
-                $.each(response.rows, function (i, val) {
-                    html = html + '<li class="gl_item"><span class="msg_dot"></span><span class="animate_dot"></span>'
-                            + '<div class="msg_time">' + val.messageTime + '</div><div class="msg_info fold"><p>' + val.content + '</p></div>';
-                });
-                $("#msg-ul").append(html);
-                nextPage++;
-                total = response.total;
-            }
-            // do something with JSON...
-        });
-        // var myScroll = new IScroll('#iscroll-wrapper', {
-        //     mouseWheel: true,
-        //     scrollbars: true
-        // });
-        // myScroll.on("scroll",function(e){
-        //     console.log("scroll e", e);
-        //     console.log(this);
-        // });
-        // myScroll.on("scrollEnd",function(e){
-        //     console.log("scrollEnd e", e);
-        //     console.log(this);
-        // });
+        $("#loadmore-btn").on("click", function (e) {
+            loadData(nextPage);
+        })
+        //判断当前浏览器是否支持WebSocket
+        if ('WebSocket' in window) {
+            websocket = new WebSocket("ws://localhost:8080/live");
+        } else {
+            Stock.showError('Not support websocket')
+        }
     })
 
     function loadData(offset) {
@@ -58,46 +24,67 @@
             if (result && result.rows && result.rows.length > 0) {
                 var html = "";
                 $.each(result.rows, function (i, val) {
-                    html = html + '<li class="gl_item"><span class="msg_dot"></span><span class="animate_dot"></span>'
+                    html = html + '<li class="gl_item animated zoomIn"><span class="msg_dot"></span><span class="animate_dot"></span>'
                             + '<div class="msg_time">' + val.messageTime + '</div><div class="msg_info fold"><p>' + val.content + '</p></div>';
                 })
                 $("#msg-ul").append(html);
-                nextPage++;
+                nextPage = nextPage + 10;
                 total = result.total;
+                if (nextPage >= total) {
+                    $("#loadmore-btn").attr("disabled", "disabled");
+                    $("#loadmore-btn").html("没有更多了")
+                }
+            } else {
+                $("#loadmore-btn").attr("disabled", "disabled");
+                $("#loadmore-btn").html("没有更多了")
             }
         }, "json");
     }
+
+    //连接发生错误的回调方法
+    websocket.onerror = function () {
+        Stock.showError("error");
+    };
+    //连接成功建立的回调方法
+    websocket.onopen = function (event) {
+        // Stock.showError("open success");
+    }
+    //接收到消息的回调方法
+    websocket.onmessage = function (event) {
+        var data = $.parseJSON(event.data);
+        if (data && data.length>0) {
+            var html = "";
+            $.each(data, function (i, val) {
+                html = html + '<li class="gl_item animated zoomIn"><span class="msg_dot"></span><span class="animate_dot"></span>'
+                        + '<div class="msg_time">' + val.messageTime + '</div><div class="msg_info fold"><p>' + val.content + '</p></div>';
+            });
+            $("#msg-ul").prepend(html);
+        }
+    }
+    //连接关闭的回调方法
+    websocket.onclose = function () {
+    }
+
+    //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
+    window.onbeforeunload = function () {
+        websocket.close();
+    }
+
+    //关闭连接
+    function closeWebSocket() {
+        websocket.close();
+    }
+
+    //发送消息
+    function send() {
+        var message = document.getElementById('text').value;
+        websocket.send(message);
+    }
 </script>
-<div class="container-fluid" id="tasks" style="overflow-y: auto;">
+<div class="container-fluid" id="tasks" style="overflow-y: auto; background: #ffffff">
     <h3>${room.title}</h3>
     <h4>${room.liveDate}</h4>
     <ul class="gl_list" id="msg-ul">
-        <li class="gl_item"></li>
-    <#--<li class="gl_item">-->
-    <#--<span class="msg_dot"></span>-->
-    <#--<span class="animate_dot"></span>-->
-    <#--<div class="msg_time">-->
-    <#--14:31:00-->
-    <#--</div>-->
-    <#--<div class="msg_info fold">-->
-    <#--<p ne-mouseover="mouseFold(__i)" ne-mouseout="mouseFold()" ne-if="{{livemsg.msg.content}}">-->
-    <#--光启科学在香港一度大涨74%，为2015年7月以来最大涨幅。</p>-->
-    <#--</div>-->
-    <#--</li>-->
     </ul>
-    <button type="button" class="btn btn-default btn-xs" id="loadmore-btn">加载更多</button>
-    <!--在最后，要加上一个导航，每次滚到底部，就会触发这个url去加载数据-->
-    <div id="navigation">
-        <a href="${request.contextPath}/liveRoom/page?offset=20&roomId=${room.roomId!}"></a>
-    </div>
-    <div class="page-load-status">
-        <div class="loader-ellips infinite-scroll-request">
-            <span class="loader-ellips__dot"></span>
-            <span class="loader-ellips__dot"></span>
-            <span class="loader-ellips__dot"></span>
-            <span class="loader-ellips__dot"></span>
-        </div>
-        <p class="infinite-scroll-last">End of content</p>
-        <p class="infinite-scroll-error">No more pages to load</p>
-    </div>
+    <button type="button" class="btn btn-link btn-sm btn-block" id="loadmore-btn" style="margin: 20px 0">加载更多</button>
 </div>
