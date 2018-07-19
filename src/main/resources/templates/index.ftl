@@ -41,7 +41,7 @@
         <div>
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#" data-url="${ctx}/index" class="nav-list">首页</a></li>
-                <li><a  href="#" data-url="${ctx}/stock">股票交易数据</a></li>
+                <li><a  href="#" data-url="${ctx}/stock" class="nav-list">股票交易数据</a></li>
             </ul>
         </div>
     </div>
@@ -58,7 +58,9 @@
 <script src="${request.contextPath}/static/js/highcharts/exporting.src.js"></script>
 <script src="${ctx}/static/js/layer-v3.0.3/layer/layer.js"></script>
 <script src="${ctx}/static/js/stock.base.js"></script>
-
+<script>
+    Stock.baseUrl="${request.contextPath}";
+</script>
 <div class="container-fluid" id="page">
 <#include "./main.ftl">
 </div>
