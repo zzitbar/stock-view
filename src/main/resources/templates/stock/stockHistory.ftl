@@ -4,7 +4,7 @@
             rangeSelectorZoom: ''
         }
     });
-    $.post('${request.contextPath}/stockInfo/history/${stockCode}', function (data) {
+    $.post('${request.contextPath}/stockInfo/history/${stockId}', function (data) {
         if(data.code !== Stock.SUCCESS) {
             Stock.showError("读取股票数据失败");
             return false;

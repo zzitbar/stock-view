@@ -9,7 +9,10 @@
             toolbar: "#toolbar",
             columns: [{
                 field: 'stockCode',
-                title: '代码'
+                title: '代码',
+                formatter: function (value, row, index) {
+                    return '<a href="javascript:void(0)" data-url="${request.contextPath}/stockInfo/history/'+row.id+'" onclick="showHistory(this)">'+value+'</a>';
+                }
             }, {
                 field: 'stockName',
                 title: '股票名称'
@@ -78,6 +81,12 @@
                 var query = $.extend( true, params, $("#stockQueryForm").serializeJSON() );
                 return query;
             }
+        });
+    }
+    function showHistory(obj) {
+        var url = $(obj).attr("data-url");
+        $.get(url, function (result) {
+            $("#content").html(result);
         });
     }
 </script>
