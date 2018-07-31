@@ -14,6 +14,7 @@
                 $("#page").html(result);
             });
         })
+        loaddata();
         app = new Vue({
             el: '#app',
             data: {
