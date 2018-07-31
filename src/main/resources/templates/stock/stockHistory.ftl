@@ -35,7 +35,6 @@
                 data[i].dealQty // the volume
             ]);
         }
-        console.log(ohlc);
         // create the chart
         var chart = Highcharts.stockChart('container', {
             rangeSelector: {
@@ -58,9 +57,27 @@
                 }
             },
             tooltip: {
-                split: false,
-                shared: true,
+                formatter: function() {
+                    console.log(data);
+                    console.log(this.points[0]);
+                    var open = this.points[0].point.open.toFixed(2);
+                    var high = this.points[0].point.high.toFixed(2);
+                    var low = this.points[0].point.low.toFixed(2);
+                    var close = this.points[0].point.close.toFixed(2);
+                    var y = (this.points[1].point.y*0.0001).toFixed(2);
+                    var tip= '<b>'+ Highcharts.dateFormat('%Y-%m-%d  %A', this.x) +'</b><br/>';
+                    tip += '开盘价：<span style="color: #DD2200;">'+open+' </span><br/>';
+                    tip += '最高价：<span style="color: #DD2200;">'+high+' </span><br/>';
+                    tip += '最低价：<span style="color: #DD2200;">'+low+' </span><br/>';
+                    tip += '收盘价：<span style="color: #DD2200;">'+close+' </span><br/>';
+                    // tip += '涨跌额：<span style="color: #DD2200;">'+zde+' </span><br/>';
+                    return tip;
+                }
             },
+            // tooltip: {
+            //     split: false,
+            //     shared: true,
+            // },
             yAxis: [{
                 labels: {
                     align: 'right',
