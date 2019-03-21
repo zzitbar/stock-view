@@ -1,26 +1,9 @@
 var Stock = {};
 $(function () {
-    $(".menu-list").on("click", function (e) {
-        var $this = e.target;
-        $($this).siblings().removeClass("active");
-        $($this).addClass("active");
-        var url = $($this).attr("data-url");
-        $.get(url, function (result) {
-            $("#content").html(result);
-        });
-    })
-    $(".nav-list").on("click", function (e) {
-        var $this = e.target;
-        $($this).parent().siblings().removeClass("active");
-        $($this).parent().addClass("active");
-        var url = $($this).attr("data-url");
-        $.get(url, function (result) {
-            $("#page").html(result);
-        });
-    })
 })
 
 Stock.SUCCESS = 200;
+Stock.baseUrl="";
 Stock.baseoption = {
     chart: {
            // width: 500,

@@ -29,6 +29,11 @@ public class StatisticController {
         return "statistic/increaseRange";
     }
 
+    /**
+     * 涨跌家数统计
+     * @param date
+     * @return
+     */
     @RequestMapping(value = "/increaseRange", method = RequestMethod.POST)
     @ResponseBody
     public Result<ChartDto> increaseRange(String date) {

@@ -38,3 +38,6 @@ ORDER BY rate;
 LOAD DATA LOCAL INFILE 'E:\\stock-view\\history-csv\\600098.csv' INTO TABLE `stock`.`stock_history` FIELDS ESCAPED BY '\\'
 TERMINATED BY ','
 ENCLOSED BY '"' LINES TERMINATED BY '\r\n' (`realDate`, `stockCode`, `stockName`, `close`, `high`, `low`, `open`, `lastClose`, `increase`, `increaseRate`, `exchangeRate`, `dealQty`, `dealMoney`, `totalMarketCap`, `negotiableMarketCap`);
+
+#
+UPDATE stock_info a INNER JOIN (SELECT stockCode, MAX(realDate) AS realDate FROM stock_history GROUP BY stockCode) c ON a.stockCode=c.stockCode SET a.lastHistoryDate = c.realDate;

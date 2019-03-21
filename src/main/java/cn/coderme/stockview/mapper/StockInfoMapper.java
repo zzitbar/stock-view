@@ -4,6 +4,7 @@ import cn.coderme.stockview.dto.StockInfoDto;
 import cn.coderme.stockview.entity.StockInfo;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.pagination.Pagination;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -25,4 +26,6 @@ public interface StockInfoMapper extends BaseMapper<StockInfo> {
     List<StockInfo> page(Pagination page);
 
     List<StockInfo> pageRealTime(Pagination page, StockInfoDto dto);
+
+    void updateLastHistoryDate(@Param("stockType") Integer stockType);
 }

@@ -7,6 +7,10 @@ package cn.coderme.stockview;
  */
 public class Constants {
 
+    public static final String LIVE_MSG_TOPIC = "/topic/liveMessage";
+
+    public static final Integer THREAD_DEAL_SIZE = 500;
+
     public enum CHART_TYPE {
         LINE("line"), COLUMN("column"), PIE("pie"), BAR("bar");
         private String value;

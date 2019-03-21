@@ -25,4 +25,9 @@ public interface StockInfoService extends IService<StockInfo> {
     PageDataDto<StockInfo> getPage(StockInfoDto dto);
 
     StockInfo findByStockCodeAndMarket(String stockCode, String market);
+
+    /**
+     * 设置历史记录最后的日期
+     */
+    void updateLastHistoryDate(Integer stockType);
 }

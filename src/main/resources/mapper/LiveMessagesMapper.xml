@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.coderme.stockview.mapper.LiveMessagesMapper">
+
+    <!-- 开启二级缓存 -->
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+
+    <select id="findByMsgId" resultType="cn.coderme.stockview.entity.LiveMessages" useCache="false">
+        select * from live_messages
+        where msgId=${msgId}
+    </select>
+    <select id="getPage" resultType="cn.coderme.stockview.entity.LiveMessages" useCache="false">
+        select * FROM live_messages
+        where roomId=#{roomId}
+    </select>
+
+</mapper>

@@ -7,7 +7,7 @@
 
     <insert id="importCsv">
         LOAD DATA LOCAL INFILE #{filePath}
-        INTO TABLE
+        REPLACE INTO TABLE
         <if test="stockType==1">
             stock_history
         </if>
@@ -19,6 +19,34 @@
         ENCLOSED BY '"' LINES TERMINATED BY '\r\n' (`realDate`, `stockCode`,
         `stockName`, `close`, `high`, `low`, `open`, `lastClose`,
         `increase`, `increaseRate`, `exchangeRate`, `dealQty`,
-        `dealMoney`, `totalMarketCap`, `negotiableMarketCap`);
+        `dealMoney`, `totalMarketCap`, `negotiableMarketCap`) SET updateTime=CURRENT_TIMESTAMP;
     </insert>
+
+    <update id="clearStockCode">
+        UPDATE
+        <if test="stockType==1">
+            stock_history
+        </if>
+        <if test="stockType==2">
+            index_history
+        </if>
+        SET stockCode = REPLACE(stockCode, "'", "");
+    </update>
+
+
+    <select id="page" resultType="cn.coderme.stockview.entity.StockHistory" useCache="false">
+        SELECT * FROM
+        <if test="stockType==1">
+            stock_history t
+        </if>
+        <if test="stockType==2">
+            index_history t
+        </if>
+        <where>
+            <if test="stockCode != null and stockCode !=''">
+                t.stockCode = #{stockCode}
+            </if>
+        </where>
+        order by t.realDate desc
+    </select>
 </mapper>

@@ -110,7 +110,7 @@ public class StockHistory implements Serializable {
      * 更新时间
      */
     @TableField("updateTime")
-    private LocalDateTime updateTime;
+    private LocalDateTime updateTime = LocalDateTime.now();
 
     /**
      * 时间戳，stockChart 使用

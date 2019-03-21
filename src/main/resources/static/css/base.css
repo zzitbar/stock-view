@@ -1,0 +1,109 @@
+body {
+    background: #fafafa !important;
+}
+.gl_list {
+    border-left: 1px solid #c0c7ca;
+    padding-left: 11px;
+    margin-left: 60px;
+    padding-bottom: 75px;
+    /*width: 168px;*/
+}
+ol, ul {
+    list-style: none;
+}
+.gl_list li {
+    position: relative;
+    border-bottom: 1px dashed #dcdcdc;
+}
+.gl_list li .msg_dot {
+    width: 9px;
+    height: 9px;
+    display: block;
+    position: absolute;
+    top: 10px;
+    left: -16px;
+    border-radius: 9px;
+    border: 1px solid #c0c7ca;
+    background: #fff;
+    /*background: url(../images/icon.png) no-repeat -50px -300px;*/
+}
+.gl_list li .animate_dot {
+    width: 30px;
+    height: 30px;
+    /*background: url(../images/icon.png) no-repeat -50px -320px;*/
+    background: rgba(255,204,26,0.94);
+    position: absolute;
+    left: -27px;
+    display: block;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    -moz-opacity: 0;
+    -khtml-opacity: 0;
+    -ms-transform: scale(0);
+    transform: scale(0);
+    -webkit-transform: scale(0);
+}
+.gl_list li .msg_time {
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    -ms-transition: all .3s;
+    -o-transition: all .3s;
+    transition: all .3s;
+    overflow: hidden;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    padding-left: 5px;
+    /*margin: 10px 0 4px;*/
+    /*position: relative;*/
+    font: italic 14px/30px 'Arial';
+    color: #404040;
+    position: absolute;
+    left: -85px;
+}
+.gl_list li .msg_info {
+    margin-bottom: 15px;
+    margin-top: 15px;
+    font: normal 14px/20px 'msyh';
+}
+.stock-panel{
+    height: 380px;
+    /*border: 1px solid #84852c;*/
+    /*background: #fafafa;*/
+    /*margin-right: 20px;*/
+    padding: 15px;
+}
+.stock-panel:hover{
+    border: 1px solid #e3e3e3;
+    border-radius: 5px;
+    box-shadow: 0 0 10px #856c7c;
+    background: #e3e3e3;
+    transition-duration: 0.3s;
+}
+.stock-panel .stock-name{
+    font-size: 16px;
+    font-weight: 600;
+}
+.stock-panel .stock-price{
+    font-size: 32px;
+    font-family: Tahoma,Arial;
+    text-align: center;
+    margin: 10px 0;
+}
+.stock-panel .stock-percent{
+    font-size: 14px;
+}
+.text-green {
+    color: green;
+}
+.text-red {
+    color: red;
+}
+.table-no-bordered {
+    border: none;
+}
+.table-no-bordered td, .table-no-bordered th {
+    border: none!important;
+}

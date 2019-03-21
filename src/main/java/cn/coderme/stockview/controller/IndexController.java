@@ -22,9 +22,6 @@ import java.time.LocalDate;
 @RequestMapping()
 public class IndexController {
 
-    @Autowired(required = false)
-    private ThreadPoolTaskExecutor taskExecutor;
-
     @Autowired
     private LiveRoomService liveRoomService;
 
@@ -47,10 +44,4 @@ public class IndexController {
         return "stockIndex";
     }
 
-    @RequestMapping(value = "/taskActiveCount")
-    @ResponseBody
-    public Integer taskActiveCount() {
-        String a = "300750";
-        return taskExecutor.getActiveCount();
-    }
 }

@@ -21,7 +21,6 @@ import java.util.Map;
 /**
 * Quartz 定时任务管理
  */
-@CrossOrigin(origins = "*", maxAge = 3600)
 @Controller
 @RequestMapping(value = "/job")
 public class JobController {

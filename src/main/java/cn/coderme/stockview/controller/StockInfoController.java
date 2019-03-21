@@ -1,6 +1,7 @@
 package cn.coderme.stockview.controller;
 
 
+import cn.coderme.stockview.Constants;
 import cn.coderme.stockview.base.PageDataDto;
 import cn.coderme.stockview.base.PageReqDto;
 import cn.coderme.stockview.dto.Result;
@@ -52,23 +53,28 @@ public class StockInfoController {
         return stockInfoService.getPage(dto);
     }
 
-    @RequestMapping(value = "/history", method = RequestMethod.GET)
-    public String history(String stockCode, Model model) {
-        model.addAttribute("stockCode", stockCode);
+    @RequestMapping(value = "/history/{stockId}", method = RequestMethod.GET)
+    public String history(@PathVariable String stockId, Model model) {
+        model.addAttribute("stockId", stockId);
         return "stock/stockHistory";
     }
 
     /**
      * 获取股票历史交易记录
-     * @param stockCode
+     * @param stockId
      * @return
      */
-    @RequestMapping(value = "/history/{stockCode}", method = RequestMethod.POST)
+    @RequestMapping(value = "/history/{stockId}", method = RequestMethod.POST)
     @ResponseBody
-    public Result<List<StockHistory>> history(@PathVariable String stockCode) {
+    public Result<List<StockHistory>> history(@PathVariable String stockId) {
         Result<List<StockHistory>> result = new Result<List<StockHistory>>();
         try {
-            result.setData(stockHistoryService.history(stockCode));
+            StockInfo si = stockInfoService.selectById(stockId);
+            StockInfoDto dto = new StockInfoDto();
+            dto.setStockType(si.getType());
+            dto.setStockCode(si.getStockCode());
+            PageDataDto<StockHistory> historyPageDataDto = stockHistoryService.history(dto);
+            result.setData(historyPageDataDto.getRows());
         } catch (Exception e) {
             logger.error("", e);
             result.setCode(Result.FAIL);

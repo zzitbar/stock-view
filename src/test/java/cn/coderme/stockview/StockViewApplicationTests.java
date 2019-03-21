@@ -1,7 +1,6 @@
 package cn.coderme.stockview;
 
 import cn.coderme.stockview.dataobtain.baseinfo.StockInfoCrawl;
-import cn.coderme.stockview.dataobtain.sinajs.job.SinaJsJob;
 import cn.coderme.stockview.entity.StockInfo;
 import cn.coderme.stockview.service.StockInfoService;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
@@ -21,8 +20,6 @@ public class StockViewApplicationTests {
 	private StockInfoCrawl stockInfoCrawl;
 	@Autowired
 	private StockInfoService stockInfoService;
-	@Autowired
-	private SinaJsJob sinaJsJob;
 
 	@Test
 	public void contextLoads() {
@@ -48,11 +45,4 @@ public class StockViewApplicationTests {
 		}
 	}
 
-	/**
-	 * 更新价格
-	 */
-	@Test
-	public void syncPrice() {
-		sinaJsJob.run();
-	}
 }

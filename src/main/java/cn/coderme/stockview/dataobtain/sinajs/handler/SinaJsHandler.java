@@ -3,6 +3,7 @@ package cn.coderme.stockview.dataobtain.sinajs.handler;
 import cn.coderme.stockview.base.StockApiProperties;
 import cn.coderme.stockview.entity.StockInfo;
 import cn.coderme.stockview.entity.StockRealtime;
+import cn.coderme.stockview.service.StockHistoryService;
 import cn.coderme.stockview.service.StockRealtimeService;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,8 @@ public class SinaJsHandler {
     private StockApiProperties stockApiProperties;
     @Autowired
     private StockRealtimeService stockRealtimeService;
+    @Autowired
+    private StockHistoryService stockHistoryService;
 
     @Async
     public void handle(Map.Entry<String, List<StockInfo>> entry) {
@@ -140,6 +143,8 @@ public class SinaJsHandler {
                             }
                         }
                         stockRealtimeService.insertOrUpdate(stockRealtime);
+                        // 更新交易历史记录表
+                        stockHistoryService.updateHistroy(stockRealtime);
                     }
                 }
             }

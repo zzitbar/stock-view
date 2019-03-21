@@ -16,6 +16,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -52,9 +53,11 @@ public class NeteaseStockHistoryHandler {
     @Autowired
     private AmapExpService amapExpService;
 
+    @Async
     public void handle(List<StockInfo> stockInfoList) throws IOException {
-        String end = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+        String end = LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("yyyyMMdd"));
         for(StockInfo si : stockInfoList) {
+            si.setLastHistoryDate(null == si.getLastHistoryDate()?LocalDate.parse("1990-01-01"):si.getLastHistoryDate());
             String url = MessageFormat.format(stockApiProperties.getNeteaseHistoryCsvApi(), ("sh".equals(si.getMarket())?"0":"1")+si.getStockCode(),
                     si.getLastHistoryDate().plusDays(1).format(DateTimeFormatter.ofPattern("yyyyMMdd")), end);
 //            历史交易页面
@@ -225,6 +228,25 @@ public class NeteaseStockHistoryHandler {
         String negotiableQty = qtyTrDatas.get(1).select("td").get(1).html();
         stockInfo.setTotalQty(Double.valueOf(totalQty)*100000000);
         stockInfo.setNegotiableQty(Double.valueOf(negotiableQty)*100000000);
+    }
+
+    /**
+     * 抓取试试数据保存进历史交易记录里
+     * @param stockInfoList
+     */
+    public void crawlHistory(List<StockInfo> stockInfoList) {
+        //http://quotes.money.163.com/0600795.html
+        for(StockInfo stockInfo : stockInfoList) {
+            String code = (Constants.STOCK_EXCHANGE.SH.getValue().equals(stockInfo.getMarket())?"0":"1")+stockInfo.getStockCode();
+            try {
+                Document doc = Jsoup.connect("http://quotes.money.163.com/0600795.html"+code+".html")
+                        .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:59.0) Gecko/20100101 Firefox/59.0")
+                        .timeout(60000)
+                        .get();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public static void main(String[] args) {

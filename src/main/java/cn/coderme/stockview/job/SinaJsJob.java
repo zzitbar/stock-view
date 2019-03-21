@@ -1,5 +1,6 @@
 package cn.coderme.stockview.job;
 
+import cn.coderme.stockview.Constants;
 import cn.coderme.stockview.base.annotation.Job;
 import cn.coderme.stockview.base.annotation.JobInfo;
 import cn.coderme.stockview.dataobtain.sinajs.handler.SinaJsHandler;
@@ -33,8 +34,6 @@ public class SinaJsJob implements BaseJob {
 
     private Map<String, List<StockInfo>> stockMap = new HashMap<>();
 
-    private static final Integer THREAD_DEAL_SIZE = 500;
-
     /**
      * 抓取股票实时交易数据
      * 每周一至周五9点至15点，每隔5分钟 0 0/5 9-15 ? * MON-FRI
@@ -48,11 +47,11 @@ public class SinaJsJob implements BaseJob {
 //                ew.eq("stockCode", "300746");
                 List<StockInfo> stockInfoList = stockInfoService.selectList(ew);
                 int size = stockInfoList.size();
-                int threadCnt = stockInfoList.size()/THREAD_DEAL_SIZE;
+                int threadCnt = stockInfoList.size()/ Constants.THREAD_DEAL_SIZE;
                 int fromIndex = 0, toIndex = 0;
                 for (int i = 0; i <= threadCnt; i++) {
                     fromIndex = toIndex;
-                    toIndex = i==threadCnt?size:(i+1)*THREAD_DEAL_SIZE;
+                    toIndex = i==threadCnt?size:(i+1)*Constants.THREAD_DEAL_SIZE;
                     stockMap.put("Thread-"+i, stockInfoList.subList(fromIndex, toIndex));
                 }
                 stockInfoList = null;

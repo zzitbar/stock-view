@@ -49,4 +49,9 @@ public class StockInfoServiceImpl extends ServiceImpl<StockInfoMapper, StockInfo
         si.setMarket(market);
         return super.baseMapper.selectOne(si);
     }
+
+    @Override
+    public void updateLastHistoryDate(Integer stockType) {
+        super.baseMapper.updateLastHistoryDate(stockType);
+    }
 }

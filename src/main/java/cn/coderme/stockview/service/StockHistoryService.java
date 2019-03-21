@@ -1,6 +1,10 @@
 package cn.coderme.stockview.service;
 
+import cn.coderme.stockview.base.PageDataDto;
+import cn.coderme.stockview.dto.StockInfoDto;
 import cn.coderme.stockview.entity.StockHistory;
+import cn.coderme.stockview.entity.StockRealtime;
+import com.baomidou.mybatisplus.plugins.pagination.Pagination;
 import com.baomidou.mybatisplus.service.IService;
 
 import java.util.List;
@@ -19,8 +23,13 @@ public interface StockHistoryService extends IService<StockHistory> {
 
     /**
      * 获取股票历史记录
-     * @param stockCode
      * @return
      */
-    List<StockHistory> history(String stockCode);
+    PageDataDto<StockHistory> history(StockInfoDto dto);
+
+    /**
+     * 插入或更新历史交易记录
+     * @param stockRealtime
+     */
+    void updateHistroy(StockRealtime stockRealtime);
 }

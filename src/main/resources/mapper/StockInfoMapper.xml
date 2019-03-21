@@ -56,4 +56,22 @@
             </if>
         </where>
     </select>
+
+    <update id="updateLastHistoryDate">
+        UPDATE
+                stock_info a
+                INNER JOIN
+                (SELECT
+                     stockCode,
+                     MAX(realDate) AS realDate
+                 FROM
+                <if test="stockType==1">
+                    stock_history
+                </if>
+                <if test="stockType==2">
+                    index_history
+                </if>
+                 GROUP BY stockCode) c
+                    ON a.stockCode = c.stockCode SET a.lastHistoryDate = c.realDate ;
+    </update>
 </mapper>

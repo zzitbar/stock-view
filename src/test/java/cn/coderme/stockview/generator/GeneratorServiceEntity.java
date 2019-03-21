@@ -19,7 +19,7 @@ public class GeneratorServiceEntity {
     public void generateCode() {
         String packageName = "cn.coderme.stockview";
         boolean serviceNameStartWithI = false;//user -> UserService, 设置成true: user -> IUserService
-        generateByTables(serviceNameStartWithI, packageName, "stock_history");
+        generateByTables(serviceNameStartWithI, packageName, "live_room", "live_messages");
     }
 
     private void generateByTables(boolean serviceNameStartWithI, String packageName, String... tableNames) {
